@@ -21,10 +21,14 @@ function Home() {
   return (
     <div>
       {allUsers?.map((user, index) => {
+        console.log(user);
         return (
           <div key={index}>
             <p>{user.name}</p>
             <p>{user.email}</p>
+            <p>{user.age}</p>
+            <p>{user.weight}</p>
+            <p>{user.gender}</p>
           </div>
         );
       })}

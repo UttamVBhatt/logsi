@@ -4,7 +4,7 @@ import axios from "axios";
 import { AuthUser } from "../contexts/authContext";
 import { useRef } from "react";
 
-import "./../styles/signup.scss";
+import "./../styles/signup.css";
 import video from "./../video.mp4";
 import Button from "./Button";
 
@@ -15,6 +15,9 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [age, setAge] = useState(0);
+  const [gender, setGender] = useState("");
+  const [weight, setWeight] = useState(0);
   const [isClick, setIsClick] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -23,6 +26,9 @@ function Signup() {
   const emailLabel = useRef(0);
   const passwordLabel = useRef(null);
   const passwordConfirmLabel = useRef(null);
+  const ageLabel = useRef(null);
+  const genderLabel = useRef(null);
+  const weightLabel = useRef(null);
 
   const { setUser } = AuthUser();
   const navigate = useNavigate();
@@ -33,6 +39,9 @@ function Signup() {
     setEmail(e.target[1].value);
     setPassword(e.target[2].value);
     setPasswordConfirm(e.target[3].value);
+    setAge(e.target[4].value);
+    setGender(e.target[5].value);
+    setWeight(e.target[6].value);
     setIsClick(true);
   }
 
@@ -52,12 +61,13 @@ function Signup() {
         const data = await axios({
           method: "POST",
           url: `${BASE_URL}/api/v1/users/signup`,
-          data: { name, email, password, passwordConfirm },
+          data: { name, email, password, passwordConfirm, age, weight, gender },
         });
 
         setUser(data?.data?.data?.user);
+        console.log(data?.data?.data?.user);
         setIsLoading(false);
-        navigate("/home");
+        // navigate("/home");
       } catch (err) {
         setIsLoading(false);
         setIsClick(false);
@@ -66,7 +76,17 @@ function Signup() {
       }
     }
     SignUp();
-  }, [name, email, password, passwordConfirm, navigate, setUser]);
+  }, [
+    name,
+    email,
+    password,
+    passwordConfirm,
+    age,
+    gender,
+    weight,
+    navigate,
+    setUser,
+  ]);
 
   function handleFocusOn(style) {
     style.current.style.top = "-2.1rem";
@@ -145,9 +165,53 @@ function Signup() {
                 </div>
                 <br />
                 <br />
+                <div>
+                  <label ref={ageLabel} htmlFor="age">
+                    Your Age :-
+                  </label>
+                  <input
+                    onFocus={() => handleFocusOn(ageLabel)}
+                    onBlur={() => handleFocusOut(ageLabel, true)}
+                    id="age"
+                    type="number"
+                    minLength={14}
+                  />
+                </div>
+                <br />
+                <br />
+                <div>
+                  <label ref={genderLabel} htmlFor="gender">
+                    Gender :-
+                  </label>
+                  <select
+                    id="gender"
+                    onFocus={() => handleFocusOn(genderLabel)}
+                    onBlur={() => handleFocusOut(genderLabel, true)}
+                  >
+                    <option value={"male"}>Male</option>
+                    <option value={"female"}>Female</option>
+                    <option value={"other"}>Other</option>
+                  </select>
+                </div>
+                <br />
+                <br />
+                <div>
+                  <label ref={weightLabel} htmlFor="weight">
+                    Your Weight :-
+                  </label>
+                  <input
+                    onFocus={() => handleFocusOn(weightLabel)}
+                    onBlur={() => handleFocusOut(weightLabel, true)}
+                    id="weight"
+                    type="number"
+                    minLength={35}
+                  />
+                </div>
+                <br />
+                <br />
                 <button type="submit">
                   {isClick ? "Creating Account..." : "Create Account"}
-                </button>{" "}
+                </button>
               </form>
             </div>
             <Button className={"video-div-sign"}>
