@@ -12,6 +12,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/logout" element={<LogOut />} />
         <Route path="/home" element={<Home />} />
+        <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>
     </Router>
   );
