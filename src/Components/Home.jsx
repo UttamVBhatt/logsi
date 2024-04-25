@@ -20,11 +20,6 @@ function Home() {
 
   return (
     <div>
-      <p>{"Default" || `Name: ${user.name}`}</p>
-      <p>{"Default" || `Email: ${user.email}`}</p>
-      <p>{"Default" || `Id: ${user._id}`}</p>
-      <br />
-      <br />
       {allUsers?.map((user, index) => {
         return (
           <div key={index}>
