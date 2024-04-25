@@ -5,7 +5,7 @@ import axios from "axios";
 import { BASE_URL } from "./Signup";
 
 function Home() {
-  const { user, setAllUsers, allUsers } = AuthUser();
+  const { setAllUsers, allUsers } = AuthUser();
 
   useEffect(() => {
     async function getAllUsers() {
