@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { AuthUser } from "../contexts/authContext";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { BASE_URL } from "./Signup";
 
 function Home() {
   const { user, setAllUsers, allUsers } = AuthUser();
@@ -10,7 +11,7 @@ function Home() {
     async function getAllUsers() {
       const users = await axios({
         method: "GET",
-        url: "http://localhost:4000/api/v1/users",
+        url: `${BASE_URL}/api/v1/users`,
       });
       setAllUsers(users?.data?.data?.users);
     }
